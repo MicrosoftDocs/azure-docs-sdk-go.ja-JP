@@ -1,4 +1,5 @@
-Azure SDK for Go は、Go バージョン 1.8 以降と互換性があります。 [Azure Stack プロファイル](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-version-profiles)を使用している環境では、Go バージョン 1.9 が最小要件となります。 システム上に Go がない場合は、[Go のインストール手順](https://golang.org/doc/install)に従ってください。
+[Azure SDK for Go](https://github.com/Azure/azure-sdk-for-go) は、Go バージョン 1.8 以降と互換性があります。 [Azure Stack プロファイル](https://docs.microsoft.com/en-us/azure/azure-stack/azure-stack-version-profiles)を使用している環境では、Go バージョン 1.9 が最小要件となります。
+システム上に Go がない場合は、[Go のインストール手順](https://golang.org/doc/install)に従ってください。
 
 `go get` を使用して、Azure SDK for Go と依存関係を入手できます。
 
