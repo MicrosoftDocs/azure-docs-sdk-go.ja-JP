@@ -8,11 +8,11 @@ ms.date: 02/08/2018
 ms.topic: quickstart
 ms.devlang: go
 manager: routlaw
-ms.openlocfilehash: e530d944deca40e9e6c29b6c2768e2367822714e
-ms.sourcegitcommit: aaa8c37880332625f858a38f5918e6cf581bf48d
+ms.openlocfilehash: ae460dbf21b13c40f3d564274f8b790afe005aae
+ms.sourcegitcommit: af3473779cd7c2978f290fbdc51ee15eb1130840
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/15/2018
+ms.lasthandoff: 03/15/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>クイック スタート: Azure SDK for Go を使用してテンプレートから Azure 仮想マシンをデプロイする
 
@@ -32,7 +32,7 @@ Azure CLI のローカル インストールを使用する場合、このクイ
 
 ## <a name="create-a-service-principal"></a>サービス プリンシパルの作成
 
-アプリケーションで非対話形式のログインを行うには、サービス プリンシパルが必要です。 サービス プリンシパルは、一意のユーザー ID を作成するロール ベースの認証 (RBAC) の一部です。 CLI で新しいサービス プリンシパルを作成するには、次のコマンドを実行します。
+アプリケーションで非対話形式のログインを行うには、サービス プリンシパルが必要です。 サービス プリンシパルはロールベースのアクセス制御 (RBAC) の一部であり、これによって一意のユーザー ID が作成されます。 CLI で新しいサービス プリンシパルを作成するには、次のコマンドを実行します。
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart
@@ -79,7 +79,7 @@ go get -u -d github.com/azure-samples/azure-sdk-for-go-samples/quickstart/deploy
     }
 ```
 
-* `vm_password`: VM ユーザー アカウントのパスワード。 長さが 6 ～ 72 文字で、次のうち 3 種類の文字を含める必要があります。
+* `vm_password`: VM ユーザー アカウントのパスワード。 長さが 12 ～ 72 文字で、次のうち 3 種類の文字を含める必要があります。
   * 小文字
   * 大文字
   * 数字
