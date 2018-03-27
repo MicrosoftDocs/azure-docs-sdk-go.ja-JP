@@ -17,9 +17,20 @@ items:
         href: /azure/postgresql/connect-go?toc=%2fgo%2fazure%2ftoc.json
       - name: Azure Database for MySQL
         href: /azure/mysql/connect-go?toc=%2fgo%2fazure%2ftoc.json
-      - name: の接続文字列
+      - name: Azure SQL Database
         href: /azure/sql-database/sql-database-connect-query-go?toc=%2fgo%2fazure%2ftoc.json
-  - name: サンプル
-    href: 'http://github.com/azure-samples/azure-sdk-for-go-samples'
+  - name: Go のコード サンプル
+    items:
+      - name: 認証と Active Directory
+        href: azure-sdk-go-auth-aad-samples.md
+      - name: コンテナー
+        href: azure-sdk-go-containers-samples.md
+      - name: コンピューティングとネットワーク
+        href: azure-sdk-go-compute-networking-samples.md
+      - name: Azure SQL Database
+        href: azure-sdk-go-sql-database-samples.md
+      - name: Go のすべてのサンプル
+        href: 'http://github.com/azure-samples/azure-sdk-for-go-samples'
+    href: null
   - name: API リファレンス
     href: 'https://godoc.org/github.com/Azure/azure-sdk-for-go'
