@@ -3,17 +3,17 @@ title: Azure SDK for Go のインストール
 description: Azure SDK for Go のインストール、ベンダリング、構成の方法。
 author: sptramer
 ms.author: sttramer
-ms.date: 01/30/2018
+ms.date: 03/14/2018
 ms.topic: article
 ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 580daf4f2e91eabf97e3acd21bda183c559b57da
-ms.sourcegitcommit: fcc1786d59d2e32c97a9a8e0748e06f564a961bd
+ms.openlocfilehash: a6a92e080aea1a92f47a9d7083f133ca05a47541
+ms.sourcegitcommit: 26520a8c6e812facb5b9432d68c370fa23c99888
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/23/2018
+ms.lasthandoff: 04/16/2018
 ---
-# <a name="installing-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール
+# <a name="install-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール
 
 Azure SDK for Go へようこそ。 この SDK を使用すると、Go アプリケーションから Azure サービスを管理し、サービスと対話できます。
 
@@ -27,7 +27,7 @@ Azure Storage Blob を操作するには、別の SDK が必要です。
 go get -u -d github.com/Azure/azure-storage-blob-go/...
 ```
 
-## <a name="vendoring-the-azure-sdk-for-go"></a>Azure SDK for Go をベンダリングする
+## <a name="vendor-the-azure-sdk-for-go"></a>Azure SDK for Go をベンダリングする
 
 Azure SDK for Go は、[dep](https://github.com/golang/dep) を使用してベンダリングできます。 安定性のため、ベンダリングすることをお勧めします。 `dep` サポートを使用するには、`Gopkg.toml` の `[[constraint]]` セクションに `github.com/Azure/azure-sdk-for-go` を追加します。 たとえば、バージョン `14.0.0` でベンダリングするには、次のエントリを追加します。
 
@@ -37,7 +37,7 @@ name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
 ```
 
-## <a name="including-the-azure-sdk-for-go-in-your-project"></a>Azure SDK for Go をプロジェクトに含める
+## <a name="include-the-azure-sdk-for-go-in-your-project"></a>Azure SDK for Go をプロジェクトに含める
 
 Go コードから Azure サービスを使用するには、対話するサービスと必要な `autorest` モジュールをインポートします。
 提供されているモジュールの一覧については、[利用可能なサービス](https://godoc.org/github.com/Azure/azure-sdk-for-go)および [AutoRest パッケージ](https://godoc.org/github.com/Azure/go-autorest) の GoDoc を参照してください。 必要となる `go-autorest` の最も一般的なパッケージを次に示します。
