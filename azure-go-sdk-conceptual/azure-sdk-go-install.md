@@ -3,15 +3,17 @@ title: Azure SDK for Go のインストール
 description: Azure SDK for Go のインストール、ベンダリング、構成の方法。
 author: sptramer
 ms.author: sttramer
-ms.date: 03/14/2018
-ms.topic: article
-ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: a6a92e080aea1a92f47a9d7083f133ca05a47541
-ms.sourcegitcommit: 26520a8c6e812facb5b9432d68c370fa23c99888
+ms.date: 03/14/2018
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
+ms.openlocfilehash: ad77bdff881770512a828b19dc7af4821f4a55ad
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール
 
@@ -62,7 +64,7 @@ import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compu
 
 他のバージョンを使用する理由がない限り、現時点ではサービスの最新バージョンを使用することをお勧めします。
 
-サービスの一括スナップショットが必要な場合は、単一のプロファイル バージョンを選択することもできます。 現時点では、ロックされたプロファイルはバージョン `2017-03-30` だけです。このバージョンには、サービスの最新の機能が含まれていない可能性があります。 プロファイルは `profiles` モジュールの下にあり、バージョンは `YYYY-MM-DD` 形式です。 サービスは、プロファイル バージョンの下にグループ化されます。 たとえば、`2017-03-09` プロファイルから Azure リソース管理モジュールをインポートするには、次のように入力します。
+サービスの一括スナップショットが必要な場合は、単一のプロファイル バージョンを選択することもできます。 現時点では、ロックされたプロファイルはバージョン `2017-03-09` だけです。このバージョンには、サービスの最新の機能が含まれていない可能性があります。 プロファイルは `profiles` モジュールの下にあり、バージョンは `YYYY-MM-DD` 形式です。 サービスは、プロファイル バージョンの下にグループ化されます。 たとえば、`2017-03-09` プロファイルから Azure リソース管理モジュールをインポートするには、次のように入力します。
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/profiles/2017-03-09/resources/mgmt/resources"

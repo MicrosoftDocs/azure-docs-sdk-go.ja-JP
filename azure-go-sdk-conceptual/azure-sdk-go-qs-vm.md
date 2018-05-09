@@ -3,15 +3,18 @@ title: Go から Azure 仮想マシンをデプロイする
 description: Azure SDK for Go を使用して仮想マシンをデプロイします。
 author: sptramer
 ms.author: sttramer
+manager: carmonm
 ms.date: 04/03/2018
 ms.topic: quickstart
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.service: virtual-machines
 ms.devlang: go
-manager: carmonm
-ms.openlocfilehash: 565580e9e6c6ced543bd00bbaa01383834d9a41c
-ms.sourcegitcommit: 2b2884ea7673c95ba45b3d6eec647200e75bfc5b
+ms.openlocfilehash: 1fbcc54df2a2aebce56c5a5800361f3d3aed1ccc
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/19/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>クイック スタート: Azure SDK for Go を使用してテンプレートから Azure 仮想マシンをデプロイする
 
