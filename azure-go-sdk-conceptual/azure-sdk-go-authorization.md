@@ -4,16 +4,19 @@ description: Azure SDK for Go で使用できる認証方法とそれらの使�
 services: azure
 author: sptramer
 ms.author: sttramer
-ms.date: 04/03/2018
-ms.topic: article
-ms.service: azure
-ms.devlang: go
 manager: carmonm
-ms.openlocfilehash: 39f9dc5a7cdf9ab84cfd9264446bacb31392ca80
-ms.sourcegitcommit: 59d2b4c9d8da15fbbd15e36551093219fdaf256e
+ms.date: 04/03/2018
+ms.topic: conceptual
+ms.prod: azure
+ms.technology: azure-sdk-go
+ms.devlang: go
+ms.service: active-directory
+ms.component: authentication
+ms.openlocfilehash: 370f5607b89c0044022f7987d06c3a55c9d6f352
+ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/18/2018
+ms.lasthandoff: 05/03/2018
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go における認証方法
 
@@ -84,6 +87,27 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := auth.NewAuthorizerFromEnvironment()
 ```
+
+### <a name="authentication-on-azure-stack"></a>Azure Stack での認証
+
+Azure Stack で認証するには、次の変数を設定する必要があります。
+
+| 環境変数 | [説明]  |
+|----------------------|--------------|
+| `AZURE_AD_ENDPOINT` | Active Directory エンドポイント。 |
+| `AZURE_AD_RESOURCE` | Active Directory リソース ID。 |
+
+これらの変数は、Azure Stack のメタデータ情報から取得できます。 メタデータを取得するには、Azure Stack 環境で Web ブラウザーを開き、URL として `(ResourceManagerURL)/metadata/endpoints?api-version=1.0` を使用します。
+
+`ResourceManagerURL` は、Azure Stack デプロイのリージョン名、マシン名、外部完全修飾ドメイン名 (FQDN) によって異なります。
+
+| 環境 | ResourceManagerURL |
+|----------------------|--------------|
+| 開発キット | `https://management.local.azurestack.external/` |
+| 統合システム | `https://management.(region).ext-(machine-name).(FQDN)` |
+
+Azure Stack での Azure SDK for Go の使用方法の詳細については、「[Azure Stack での GO による API バージョンのプロファイルの使用](https://docs.microsoft.com/en-us/azure/azure-stack/user/azure-stack-version-profiles-go)」をご覧ください。
+
 
 ## <a name="use-file-based-authentication"></a>ファイル ベースの認証を使用する
 
