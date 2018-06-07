@@ -9,11 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: ad77bdff881770512a828b19dc7af4821f4a55ad
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 8423b3fedd89e57662bf96f777a5b30926914da9
+ms.sourcegitcommit: b81b17cbb934399c195bfdcb87137aee935f5234
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/03/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34755517"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール
 
@@ -23,11 +24,14 @@ Azure SDK for Go へようこそ。 この SDK を使用すると、Go アプリ
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
-Azure Storage Blob を操作するには、別の SDK が必要です。
+一部の Azure サービスには独自の Go SDK が用意されていますが、これは Azure SDK for Go のコア パッケージには含まれていません。 次の表に、独自の SDK が用意されているサービスと、そのパッケージ名を示します。 これらのパッケージは、すべてプレビュー段階にあると考えられます。
 
-```bash
-go get -u -d github.com/Azure/azure-storage-blob-go/...
-```
+| サービス | パッケージ |
+|---------|---------|
+| Blob Storage | [github.com/Azure/azure-storage-blob-go](https://github.com/Azure/azure-storage-blob-go) |
+| File Storage | [github.com/Azure/azure-storage-file-go](https://github.com/Azure/azure-storage-file-go) |
+| イベント ハブ | [github.com/Azure/azure-event-hubs-go](https://github.com/Azure/azure-event-hubs-go) |
+| Application Insights | [github.com/Microsoft/ApplicationInsights-go](https://github.com/Microsoft/ApplicationInsights-go) |
 
 ## <a name="vendor-the-azure-sdk-for-go"></a>Azure SDK for Go をベンダリングする
 
@@ -44,7 +48,7 @@ version = "14.0.0"
 Go コードから Azure サービスを使用するには、対話するサービスと必要な `autorest` モジュールをインポートします。
 提供されているモジュールの一覧については、[利用可能なサービス](https://godoc.org/github.com/Azure/azure-sdk-for-go)および [AutoRest パッケージ](https://godoc.org/github.com/Azure/go-autorest) の GoDoc を参照してください。 必要となる `go-autorest` の最も一般的なパッケージを次に示します。
 
-| パッケージ | [説明] |
+| パッケージ | 説明 |
 |---------|-------------|
 | [github.com/Azure/go-autorest/autorest][autorest] | サービス クライアント認証を処理するためのオブジェクト |
 | [github.com/Azure/go-autorest/autorest/azure][autorest/azure] | Azure サービスと対話するための定数 |
@@ -86,6 +90,7 @@ Go SDK で他のサービスをすぐに使用する場合は、用意されて�
 * [Azure サービスによる認証](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam)
 * [SSH 認証を使用した新しい仮想マシンのデプロイ](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)
 * [Azure Container Instances へのコンテナー イメージのデプロイ](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance)
-* [Azure Kubernetes サービスでのクラスターの作成](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice)
+* 
+  [Azure Kubernetes Service でのクラスターの作成](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice)
 * [Azure Storage サービスの操作](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/storage)
 * [Azure SDK for Go のすべてのサンプル](https://github.com/azure-samples/azure-sdk-for-go-samples)
