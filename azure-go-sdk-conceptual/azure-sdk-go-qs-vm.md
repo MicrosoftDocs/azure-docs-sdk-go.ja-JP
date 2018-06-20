@@ -15,6 +15,7 @@ ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 05/03/2018
+ms.locfileid: "32319936"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a><span data-ttu-id="9938c-103">クイック スタート: Azure SDK for Go を使用してテンプレートから Azure 仮想マシンをデプロイする</span><span class="sxs-lookup"><span data-stu-id="9938c-103">Quickstart: Deploy an Azure virtual machine from a template with the Azure SDK for Go</span></span>
 
