@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 1e122ab161766023ea146329a5edb13143699b8b
-ms.sourcegitcommit: b81b17cbb934399c195bfdcb87137aee935f5234
+ms.openlocfilehash: 25b46e3a1636c39e261ba11c6f8939d8721cc693
+ms.sourcegitcommit: 79d216c6b0442d0f3b3660ff2a34dc8b2049390c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/04/2018
-ms.locfileid: "34755534"
+ms.lasthandoff: 06/29/2018
+ms.locfileid: "37093160"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>Azure SDK for Go を使用する開発者向けのツール
 
@@ -40,4 +40,4 @@ Visual Studio Code は、拡張機能を通じて Go 言語を包括的にサポ
 公式ソリューションはまだありませんが、パッケージの依存関係を管理し、Go でベンダリングするさまざまな方法があります。 この管理を行うときには、`dep` 依存関係マネージャーを使用することをお勧めします。 Azure SDK for Go ではベンダリングに dep を使用します。dep を使用して、他のプロジェクトの依存関係を正しく取得することが保証されます。
 
 > [!div class="nextstepaction"]
-> [dep 依存関係マネージャーを入手する](https://github.com/tools/godep)
+> [dep 依存関係マネージャーを入手する](https://github.com/golang/dep)
