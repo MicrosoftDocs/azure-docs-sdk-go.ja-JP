@@ -10,16 +10,16 @@ ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 1fbcc54df2a2aebce56c5a5800361f3d3aed1ccc
-ms.sourcegitcommit: f08abf902b48f8173aa6e261084ff2cfc9043305
+ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
+ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/03/2018
-ms.locfileid: "32319936"
+ms.lasthandoff: 07/11/2018
+ms.locfileid: "38067018"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>クイック スタート: Azure SDK for Go を使用してテンプレートから Azure 仮想マシンをデプロイする
 
-このクイック スタートでは、Azure SDK for Go を使用してテンプレートからリソースをデプロイする方法について説明します。 テンプレートは、[Azure リソース グループ](https://docs.microsoft.com/en-us/azure/azure-resource-manager/resource-group-overview)に含まれているすべてのリソースのスナップショットです。 途中で有用なタスクを実行しながら、SDK の機能と規則について理解を深めます。
+このクイック スタートでは、Azure SDK for Go を使用してテンプレートからリソースをデプロイする方法について説明します。 テンプレートは、[Azure リソース グループ](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview)に含まれているすべてのリソースのスナップショットです。 途中で有用なタスクを実行しながら、SDK の機能と規則について理解を深めます。
 
 このクイック スタートの終わりには、実行中の VM にユーザー名とパスワードを使用してログインした状態になります。
 
@@ -35,8 +35,7 @@ Azure CLI のローカル インストールを使用する場合、このクイ
 
 ## <a name="create-a-service-principal"></a>サービス プリンシパルの作成
 
-
-アプリケーションで非対話形式のログインを行うには、サービス プリンシパルが必要です。 サービス プリンシパルはロールベースのアクセス制御 (RBAC) の一部であり、これによって一意のユーザー ID が作成されます。 CLI で新しいサービス プリンシパルを作成するには、次のコマンドを実行します。
+アプリケーションで非対話形式で Azure にサインインするには、サービス プリンシパルが必要です。 サービス プリンシパルはロールベースのアクセス制御 (RBAC) の一部であり、これによって一意のユーザー ID が作成されます。 CLI で新しいサービス プリンシパルを作成するには、次のコマンドを実行します。
 
 ```azurecli-interactive
 az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
