@@ -4,28 +4,28 @@ description: Azure SDK for Go および Azure サービスを操作するため�
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 01/30/2018
+ms.date: 07/13/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 006d140bffb66fdd769a14511232d4ea5081811d
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: dfa3912ac13e6f6d52d607f9dcc150f3a5b57602
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38066984"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039507"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>Azure SDK for Go を使用する開発者向けのツール
 
 Go コードを効果的に記述し、Azure サービスでシームレスに動作させるための推奨ツールを紹介します。
 
-## <a name="azure-cli-20"></a>Azure CLI 2.0
+## <a name="azure-cli"></a>Azure CLI
 
-Azure CLI 2.0 は、サブスクリプションに Azure リソースを作成して構成するためのコマンド ライン インターフェイスを提供します。 CLI を使用すると、一般的な共有 Azure リソースの作成を速やかに開始できるため、サービスのより複雑な用途に集中できます。 CLI はクエリとフィルターの機能を備えているので、好みのコマンド ライン ツールに出力を直接パイプ処理できます。 CLI はローカル システムにインストールすることも、Docker イメージとしてインストールすることもできます。また、[Azure Cloud Shell](https://docs.microsoft.com/azure/cloud-shell/overview) を介してインストールすることも可能です。
+Azure CLI は、サブスクリプションで Azure リソースを作成して構成するためのコマンド ライン インターフェイスを提供します。 CLI を使用すると、一般的な共有 Azure リソースの作成を速やかに開始できるため、サービスのより複雑な用途に集中できます。 CLI はクエリとフィルターの機能を備えているので、好みのコマンド ライン ツールに出力を直接パイプ処理できます。 CLI はローカル システムにインストールすることも、Docker イメージとしてインストールすることもできます。また、[Azure Cloud Shell](https://docs.microsoft.com/azure/cloud-shell/overview) を介してインストールすることも可能です。
 
 > [!div class="nextstepaction"]
-> [Azure CLI 2.0 をインストールします](/cli/azure/install-azure-cli)
+> [Azure CLI のインストール](/cli/azure/install-azure-cli)
 
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
@@ -34,6 +34,13 @@ Visual Studio Code は、拡張機能を通じて Go 言語を包括的にサポ
 * [Visual Studio Code をインストールする](https://code.visualstudio.com/Download)
 * [Visual Studio Code Go 拡張機能を入手する](https://code.visualstudio.com/docs/languages/go)
 * [Azure Tools 拡張機能を入手する](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-azureextensionpack)
+
+## <a name="cicd-with-azure-devops-project"></a>Azure DevOps プロジェクトによる CI/CD
+
+Azure DevOps プロジェクト パイプラインを使用すると、継続的なビルドの設定と、Go アプリケーションのデプロイが可能になります。 使用可能な Git リポジトリさえあれば、Azure リソースのデプロイとテストを直接設定することができます。 構成パイプラインの作成と管理が容易で、Azure 上で直接プロビジョニングされるため、他の Azure リソースを扱うのと同じように制御できます。
+
+> [!div class="nextstepaction"]
+> [Azure DevOps Projects で CI/CD パイプラインを作成する方法を確認する](/devops-project/azure-devops-project-go)
 
 ## <a name="dependency-management-with-dep"></a>dep を使用した依存関係の管理
 

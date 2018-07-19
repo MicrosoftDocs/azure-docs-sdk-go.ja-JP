@@ -4,18 +4,18 @@ description: Azure SDK for Go を使用して仮想マシンをデプロイし�
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/03/2018
+ms.date: 07/13/2018
 ms.topic: quickstart
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 7592e8617436a76dd27cac5269971051982425bf
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38067018"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039558"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>クイック スタート: Azure SDK for Go を使用してテンプレートから Azure 仮想マシンをデプロイする
 
@@ -27,9 +27,9 @@ ms.locfileid: "38067018"
 
 [!INCLUDE [cloud-shell-try-it.md](includes/cloud-shell-try-it.md)]
 
-Azure CLI のローカル インストールを使用する場合、このクイック スタートには CLI バージョン __2.0.28__ 以降が必要です。 `az --version` を実行して、CLI インストールがこの要件を満たしていることを確認してください。 インストールまたはアップグレードが必要な場合は、[Azure CLI 2.0 のインストール](/cli/azure/install-azure-cli)に関する記事をご覧ください。
+Azure CLI のローカル インストールを使用する場合、このクイック スタートには CLI バージョン __2.0.28__ 以降が必要です。 `az --version` を実行して、CLI インストールがこの要件を満たしていることを確認してください。 インストールまたはアップグレードが必要な場合は、[Azure CLI のインストール](/cli/azure/install-azure-cli)に関するページを参照してください。
 
-## <a name="install-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール 
+## <a name="install-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール
 
 [!INCLUDE [azure-sdk-go-get](includes/azure-sdk-go-get.md)]
 
@@ -242,7 +242,9 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
     }
 ```
 
-このコードは、リソース グループを作成する場合と同じパターンに従っています。 Azure で認証できることを前提として、新しいクライアントが作成された後、メソッドが呼び出されます。 このメソッドは、リソース グループの対応するメソッドと同じ名前 (`CreateOrUpdate`) です。 このパターンは SDK 全体で見られます。 同様の処理を実行するメソッドは、通常、同じ名前です。
+このコードは、リソース グループを作成する場合と同じパターンに従っています。 Azure で認証できることを前提として、新しいクライアントが作成された後、メソッドが呼び出されます。
+このメソッドは、リソース グループの対応するメソッドと同じ名前 (`CreateOrUpdate`) です。 このパターンは SDK 全体で見られます。
+同様の処理を実行するメソッドは、通常、同じ名前です。
 
 最も大きな違いは、`deploymentsClient.CreateOrUpdate` メソッドの戻り値にあります。 この値は、[Future 設計パターン](https://en.wikipedia.org/wiki/Futures_and_promises)に従う [Future](https://godoc.org/github.com/Azure/go-autorest/autorest/azure#Future) 型です。 Future は、ポーリング、取り消し、または完了のブロックが可能な、Azure での実行時間の長い操作を表します。
 

@@ -12,12 +12,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: c7970167070bdf1f3fc75692f3e34268801c65df
-ms.sourcegitcommit: 181d4e0b164cf39b3feac346f559596bd19c94db
+ms.openlocfilehash: f5e76fc745512a3a52172f560c3a24f510e96feb
+ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/11/2018
-ms.locfileid: "38067001"
+ms.lasthandoff: 07/14/2018
+ms.locfileid: "39039541"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go における認証方法
 
@@ -30,20 +30,21 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 | 認証の種類 | 推奨される状況 |
 |---------------------|---------------------|
 | 証明書ベースの認証 | Azure Active Directory (AAD) ユーザーまたはサービス プリンシパル用に構成された X509 証明書がある場合。 詳細については、「[Azure Active Directory の証明書ベースの認証の概要]」をご覧ください。 |
-| クライアントの資格情報 | このアプリケーションまたはアプリケーションが属するクラス用に設定された構成済みのサービス プリンシパルがある場合。 詳細については、[Azure CLI 2.0 でのサービス プリンシパルの作成]に関する記事をご覧ください。 |
+| クライアントの資格情報 | このアプリケーションまたはアプリケーションが属するクラス用に設定された構成済みのサービス プリンシパルがある場合。 詳細については、[Azure CLI でのサービス プリンシパルの作成]に関する記事をご覧ください。 |
 | 管理対象サービス ID (MSI) | 管理対象サービス ID (MSI) で構成された Azure リソース上でアプリケーションが実行されている場合。 詳細については、「[Azure リソースの管理対象サービス ID (MSI)]」をご覧ください。 |
 | デバイス トークン | アプリケーションを対話形式で__のみ__使用し、複数の AAD テナントのさまざまなユーザーが使用する可能性がある場合。 ユーザーは、Web ブラウザーにアクセスしてサインインできます。 詳細については、「[デバイス トークン認証を使用する](#use-device-token-authentication)」をご覧ください。|
 | ユーザー名/パスワード | 他のどの認証方法も使用できない対話型アプリケーションがある場合。 ユーザーは、AAD サインインで多要素認証を有効にすることはできません。 |
 
 > [!IMPORTANT]
 > クライアントの資格情報以外の認証の種類を使用する場合は、アプリケーションを Azure Active Directory に登録する必要があります。 方法については、「[Azure Active Directory とアプリケーションの統合](/azure/active-directory/develop/active-directory-integrating-applications)」をご覧ください。
-
+>
 > [!NOTE]
 > 特別な要件がない限り、ユーザー名/パスワード認証は避けてください。 ユーザー ベースのサインインが適している場合、通常はデバイス トークン認証を代わりに使用できます。
 
 [Azure Active Directory の証明書ベースの認証の概要]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
-[Azure CLI 2.0 でのサービス プリンシパルの作成]: /cli/azure/create-an-azure-service-principal-azure-cli
-[Azure リソースの管理対象サービス ID (MSI)]: /azure/active-directory/managed-service-identity/overview
+[Azure CLI でのサービス プリンシパルの作成]: /cli/azure/create-an-azure-service-principal-azure-cli
+
+  [Azure リソースの管理対象サービス ID (MSI)]: /azure/active-directory/managed-service-identity/overview
 
 これらの認証の種類は、異なる方法で使用できます。 [_環境ベースの認証_](#use-environment-based-authentication)では、プログラムの環境から資格情報を直接読み取ります。 [_ファイル ベースの認証_](#use-file-based-authentication)では、サービス プリンシパルの資格情報が含まれたファイルを読み込みます。 [_クライアント ベースの認証_](#use-an-authentication-client)では、Go コード内のオブジェクトを使用します。プログラムの実行時に資格情報を提供する必要があります。 最後に、"[_デバイス トークン認証_](#use-device-token-authentication)" では、ユーザーはトークンを使用して Web ブラウザーを介して対話形式でサインインする必要があります。環境ベースまたはファイル ベースの認証では使用できません。
 
@@ -54,7 +55,7 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 
 ## <a name="use-environment-based-authentication"></a>環境ベースの認証を使用する
 
-コンテナーなどの厳しく管理された環境でアプリケーションを実行する場合は、環境ベースの認証が自然な選択となります。 アプリケーションを実行する前にシェル環境を構成すると、実行時に Go SDK によってこれらの環境変数が読み取られ、Azure で認証が行われます。 
+コンテナーなどの厳しく管理された環境でアプリケーションを実行する場合は、環境ベースの認証が自然な選択となります。 アプリケーションを実行する前にシェル環境を構成すると、実行時に Go SDK によってこれらの環境変数が読み取られ、Azure で認証が行われます。
 
 環境ベースの認証では、デバイス トークンを除くすべての認証方法がサポートされ、クライアントの資格情報、証明書、ユーザー名/パスワード、管理対象サービス ID (MSI) の順番で評価されます。 必要な環境変数が設定されていない場合、または SDK が認証サービスから拒否された場合は、次の認証の種類が試されます。 SDK が環境から認証できない場合は、エラーが返されます。
 
@@ -109,10 +110,9 @@ Azure Stack で認証するには、次の変数を設定する必要があり�
 
 Azure Stack での Azure SDK for Go の使用方法の詳細については、「[Azure Stack での GO による API バージョンのプロファイルの使用](https://docs.microsoft.com/azure/azure-stack/user/azure-stack-version-profiles-go)」をご覧ください。
 
-
 ## <a name="use-file-based-authentication"></a>ファイル ベースの認証を使用する
 
-ファイル ベースの認証は、[Azure CLI 2.0](/cli/azure) で生成されたローカル ファイル形式で保存されているクライアントの資格情報でのみ機能します。 `--sdk-auth` パラメーターを指定して新しいサービス プリンシパルを作成すると、このファイルを簡単に作成できます。 ファイル ベースの認証を使用する場合は、サービス プリンシパルの作成時に、この引数が指定されていることを確認してください。 CLI では出力が `stdout` に生成されるので、出力をファイルにリダイレクトします。
+ファイル ベースの認証は、[Azure CLI](/cli/azure) で生成されたローカル ファイル形式で保存されているクライアントの資格情報でのみ機能します。 `--sdk-auth` パラメーターを指定して新しいサービス プリンシパルを作成すると、このファイルを簡単に作成できます。 ファイル ベースの認証を使用する場合は、サービス プリンシパルの作成時に、この引数が指定されていることを確認してください。 CLI では出力が `stdout` に生成されるので、出力をファイルにリダイレクトします。
 
 ```azurecli
 az ad sp create-for-rbac --sdk-auth > azure.auth
@@ -127,7 +127,7 @@ import "github.com/Azure/go-autorest/autorest/azure/auth"
 authorizer, err := NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoint)
 ```
 
-サービス プリンシパルの使用とアクセス許可の管理の詳細については、[Azure CLI 2.0 でのサービス プリンシパルの作成]に関する記事をご覧ください。
+サービス プリンシパルの使用とアクセス許可の管理の詳細については、[Azure CLI でのサービス プリンシパルの作成]に関する記事をご覧ください。
 
 ## <a name="use-device-token-authentication"></a>デバイス トークン認証を使用する
 
