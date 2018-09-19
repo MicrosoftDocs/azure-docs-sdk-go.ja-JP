@@ -4,24 +4,26 @@ description: Azure SDK for Go を使用して仮想マシンをデプロイし�
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/13/2018
+ms.date: 09/05/2018
 ms.topic: quickstart
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: 6b1de35748fb7694d45715fa7f028d5730530d2e
-ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
+ms.openlocfilehash: a7970be0857fd414d776241b033af0c23457790c
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/14/2018
-ms.locfileid: "39039558"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059137"
 ---
 # <a name="quickstart-deploy-an-azure-virtual-machine-from-a-template-with-the-azure-sdk-for-go"></a>クイック スタート: Azure SDK for Go を使用してテンプレートから Azure 仮想マシンをデプロイする
 
-このクイック スタートでは、Azure SDK for Go を使用してテンプレートからリソースをデプロイする方法について説明します。 テンプレートは、[Azure リソース グループ](https://docs.microsoft.com/azure/azure-resource-manager/resource-group-overview)に含まれているすべてのリソースのスナップショットです。 途中で有用なタスクを実行しながら、SDK の機能と規則について理解を深めます。
+このクイック スタートでは、Azure SDK for Go を使用して Azure Resource Manager テンプレートからリソースをデプロイする方法を示します。 テンプレートは、[Azure リソース グループ](/azure/azure-resource-manager/resource-group-overview)内のすべてのリソースのスナップショットです。 この過程で、SDK の機能と規則について理解を深めます。
 
 このクイック スタートの終わりには、実行中の VM にユーザー名とパスワードを使用してログインした状態になります。
+
+> [!NOTE]
+> Resource Manager テンプレートを使用せずに Go 内で VM を作成する方法を確認する場合は、この SDK を使用して VM のすべてのリソースを作成して構成する方法を説明した[命令型のサンプル](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go)があります。 このサンプルのテンプレートを使用すると、Azure サービスのアーキテクチャに関する数多くの詳細に深入りすることなく、SDK の規則に集中できます。
 
 [!INCLUDE [quickstarts-free-trial-note](includes/quickstarts-free-trial-note.md)]
 
@@ -38,7 +40,7 @@ Azure CLI のローカル インストールを使用する場合、このクイ
 アプリケーションで非対話形式で Azure にサインインするには、サービス プリンシパルが必要です。 サービス プリンシパルはロールベースのアクセス制御 (RBAC) の一部であり、これによって一意のユーザー ID が作成されます。 CLI で新しいサービス プリンシパルを作成するには、次のコマンドを実行します。
 
 ```azurecli-interactive
-az ad sp create-for-rbac --name az-go-vm-quickstart --sdk-auth > quickstart.auth
+az ad sp create-for-rbac --sdk-auth > quickstart.auth
 ```
 
 `AZURE_AUTH_LOCATION` 環境変数を、このファイルの完全なパスに設定します。 これにより、SDK によってこのファイルが検索され、ファイルから資格情報が直接読み取られます。サービス プリンシパルの情報を変更したり、記録したりする必要はありません。
@@ -62,13 +64,7 @@ cd $GOPATH/src/github.com/azure-samples/azure-sdk-for-go-samples/quickstarts/dep
 go run main.go
 ```
 
-デプロイでエラーが発生すると、問題があることを示すメッセージが表示されますが、十分な詳細が含まれていない場合があります。 デプロイ エラーの全詳細を取得するには、Azure CLI で次のコマンドを実行します。
-
-```azurecli-interactive
-az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
-```
-
-デプロイが成功すると、新しく作成された仮想マシンにログインするためのユーザー名、IP アドレス、パスワードを示すメッセージが表示されます。 このマシンに SSH 接続し、マシンが起動して動作していることを確認します。
+デプロイが成功すると、新しく作成された仮想マシンにログインするためのユーザー名、IP アドレス、パスワードを示すメッセージが表示されます。 このマシンに SSH 接続し、マシンが起動して動作しているかどうかを確認します。 
 
 ## <a name="cleaning-up"></a>クリーンアップしています
 
@@ -77,6 +73,18 @@ az group deployment show -g GoVMQuickstart -n VMDeployQuickstart
 ```azurecli-interactive
 az group delete -n GoVMQuickstart
 ```
+
+作成されたサービス プリンシパルも削除します。 `quickstart.auth` ファイルに `clientId` の JSON キーがあります。 この値を `CLIENT_ID_VALUE` 環境変数にコピーし、次の Azure CLI コマンドを実行します。
+
+```azurecli-interactive
+az ad sp delete --id ${CLIENT_ID_VALUE}
+```
+
+ここに `quickstart.auth` の `CLIENT_ID_VALUE` の値を指定します。
+
+> [!WARNING]
+> このアプリケーションのサービス プリンシパルの削除に失敗すると、アプリケーションは Azure Active Directory テナントでアクティブなままになります。
+> このサービス プリンシパルの名前とパスワードの両方が UUID として生成されますが、使用されないサービス プリンシパルと Azure Active Directory アプリケーションをすべて削除することで、適切なセキュリティ プラクティスに必ず従ってください。
 
 ## <a name="code-in-depth"></a>コードの詳細
 
@@ -111,7 +119,7 @@ var (
 
 作成するリソースの名前を指定する値が宣言されています。 ここでは場所も指定されています。この場所を変更して、他のデータセンターでのデプロイの動作を確認できます。 すべてのデータセンターで、必要なリソースがすべて提供されるとは限りません。
 
-SDK でクライアントをセットアップし、VM のパスワードを設定するために認証ファイルから個別に読み込む必要があるすべての情報をカプセル化するために、`clientInfo` 型が宣言されています。
+`clientInfo` 型には、SDK でクライアントをセットアップし、VM のパスワードを設定するために、認証ファイルから読み込まれた情報が保持されます。
 
 定数 `templateFile` と `parametersFile` は、デプロイに必要なファイルを参照しています。 `authorizer` は、認証のために Go SDK によって構成されます。`ctx` 変数は、ネットワーク操作の [Go コンテキスト](https://blog.golang.org/context)です。
 
@@ -170,7 +178,7 @@ func main() {
 * このグループ内にデプロイを作成する (`createDeployment`)
 * デプロイした VM のログイン情報を取得して表示する (`getLogin`)
 
-### <a name="creating-the-resource-group"></a>リソース グループの作成
+### <a name="create-the-resource-group"></a>リソース グループの作成
 
 `createGroup` 関数はリソース グループを作成します。 呼び出しフローと引数は、SDK でサービスとの対話を構造化する方法を示しています。
 
@@ -197,7 +205,7 @@ Azure サービスとの対話の一般的なフローは次のとおりです�
 
 `groupsClient.CreateOrUpdate` メソッドは、リソース グループを表すデータ型へのポインターを返します。 この種の直接的な戻り値は、同期する必要がある実行時間の短い操作を示しています。 次のセクションでは、実行時間の長い操作の例と、その操作と対話する方法を説明します。
 
-### <a name="performing-the-deployment"></a>デプロイの実行
+### <a name="perform-the-deployment"></a>デプロイの実行
 
 リソース グループが作成されたら、デプロイを実行します。 このコードは、ロジックのさまざまな部分を強調するために小さなセクションに分けられています。
 
@@ -254,20 +262,13 @@ func createDeployment() (deployment resources.DeploymentExtended, err error) {
     if err != nil {
         return
     }
-    deployment, err = deploymentFuture.Result(deploymentsClient)
-
-    // Work around possible bugs or late-stage failures
-    if deployment.Name == nil || err != nil {
-        deployment, _ = deploymentsClient.Get(ctx, resourceGroupName, deploymentName)
-    }
-    return
+    return deploymentFuture.Result(deploymentsClient)
+}
 ```
 
 この例では、一番良いのは操作が完了するまで待つことです。 将来のある時点まで待つには、[コンテキスト オブジェクト](https://blog.golang.org/context)と、`Future` オブジェクトを作成したクライアントの両方が必要です。 ここではエラー ソースとして、メソッドを呼び出そうとしたときにクライアント側で発生したエラーと、サーバーからのエラー応答の 2 つが考えられます。 後者は、`deploymentFuture.Result` 呼び出しの一部として返されます。
 
-デプロイ情報を取得したら、データが確実に設定されるように `deploymentsClient.Get` を手動で呼び出すことで、デプロイ情報が空になる可能性のあるバグを回避できます。
-
-### <a name="obtaining-the-assigned-ip-address"></a>割り当てられた IP アドレスの取得
+### <a name="get-the-assigned-ip-address"></a>割り当てられた IP アドレスの取得
 
 新しく作成された VM で 操作を実行するには、割り当てられた IP アドレスが必要です。 IP アドレスは、ネットワーク インターフェイス コントローラー (NIC) リソースにバインドされた個別の Azure リソースです。
 
@@ -301,7 +302,7 @@ VM ユーザーの値も JSON から読み込まれます。 VM のパスワー�
 
 ## <a name="next-steps"></a>次の手順
 
-このクイック スタートでは、既存のテンプレートを取得し、Go を使用してデプロイしました。 次に、新しく作成された VM に SSH 経由で接続して、VM が実行されていることを確認しました。
+このクイック スタートでは、既存のテンプレートを取得し、Go を使用してデプロイしました。 次に、新しく作成された VM に SSH 経由で接続しました。
 
 Go を使用して Azure 環境の仮想マシンを操作する方法について引き続き学習する場合は、[Go 用 Azure コンピューティング サンプル](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)または [Go 用 Azure リソース管理サンプル](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/resources)を参照してください。
 

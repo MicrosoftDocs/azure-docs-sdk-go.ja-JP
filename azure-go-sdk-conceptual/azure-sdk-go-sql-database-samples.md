@@ -4,22 +4,21 @@ description: Azure SDK for Go から Azure SQL Database を操作するための
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 03/21/2018
+ms.date: 09/05/2018
 ms.topic: sample
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.service: sql-database
 ms.devlang: go
-ms.openlocfilehash: 17eab667721acace20bab79b8290d1031292be12
-ms.sourcegitcommit: 0f581979216f7c9d4913681a6d9f6fe09af26e43
+ms.openlocfilehash: 1f8b011ad87b1be2a155120e4aab843b16c474a0
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/02/2018
-ms.locfileid: "39475893"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059061"
 ---
 # <a name="azure-sdk-for-go-samples-for-azure-sql-database"></a>Azure SDK for Go のサンプル (Azure SQL Database)
 
-次の表に、Azure SQL Database を操作するために使用できる、Go ソース コードの厳選サンプルのリンクを示します。
+次の表に、Azure SDK for Go から Azure SQL Database を使用する方法を説明した厳選サンプルのリンクを示します。
 
 Azure SDK for Go の全サンプルは、[GitHub](https://github.com/Azure-Samples/azure-sdk-for-go-samples) で入手できます。
 

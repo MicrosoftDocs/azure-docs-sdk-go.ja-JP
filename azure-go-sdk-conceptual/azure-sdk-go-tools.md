@@ -1,20 +1,20 @@
 ---
-title: Go 開発者向けのツール
+title: Azure SDK for Go を使用する開発者向けのツール
 description: Azure SDK for Go および Azure サービスを操作するためのツール
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 07/13/2018
+ms.date: 09/05/2018
 ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: dfa3912ac13e6f6d52d607f9dcc150f3a5b57602
-ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
+ms.openlocfilehash: 70cf7d645f47df29e8e42599a0acd75858144783
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/14/2018
-ms.locfileid: "39039507"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059205"
 ---
 # <a name="tools-for-developers-using-the-azure-sdk-for-go"></a>Azure SDK for Go を使用する開発者向けのツール
 
@@ -29,22 +29,22 @@ Azure CLI は、サブスクリプションで Azure リソースを作成して
 
 ## <a name="visual-studio-code"></a>Visual Studio Code
 
-Visual Studio Code は、拡張機能を通じて Go 言語を包括的にサポートする軽量エディターです。 これらの拡張機能により、オートコンプリート、`impl` テンプレート、リファクタリング、デバッグなどの機能のサポートが追加されます。 Visual Studio Code では、ソース管理などの一般的な開発者ツールの多数の拡張機能に加え、Azure サービスと直接対話するための拡張機能も提供されます。 Microsoft は、Azure CLI の対話型インターフェイスなど、これらの Azure 拡張機能を含む公式のメタ拡張機能を管理しています。
+Visual Studio Code は、Go をサポートする軽量なエディターです。 この拡張機能により、オートコンプリート、`impl` テンプレート、リファクタリング、デバッグなどの機能が提供されます。 Visual Studio Code では、エディター内からソース管理にアクセスすることが可能で、Azure サービスを操作するための拡張機能も提供されています。
 
 * [Visual Studio Code をインストールする](https://code.visualstudio.com/Download)
 * [Visual Studio Code Go 拡張機能を入手する](https://code.visualstudio.com/docs/languages/go)
-* [Azure Tools 拡張機能を入手する](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-azureextensionpack)
+* [Visual Studio Code の Azure ツール拡張機能を入手する](https://marketplace.visualstudio.com/items?itemName=ms-vscode.vscode-azureextensionpack)
 
 ## <a name="cicd-with-azure-devops-project"></a>Azure DevOps プロジェクトによる CI/CD
 
-Azure DevOps プロジェクト パイプラインを使用すると、継続的なビルドの設定と、Go アプリケーションのデプロイが可能になります。 使用可能な Git リポジトリさえあれば、Azure リソースのデプロイとテストを直接設定することができます。 構成パイプラインの作成と管理が容易で、Azure 上で直接プロビジョニングされるため、他の Azure リソースを扱うのと同じように制御できます。
+Azure DevOps プロジェクトのパイプラインを使用すると、Go アプリケーションの継続的インテグレーション システムを設定できます。 Git リポジトリだけで、Azure 上で直接デプロイとテストを実行できます。
 
 > [!div class="nextstepaction"]
-> [Azure DevOps Projects で CI/CD パイプラインを作成する方法を確認する](/devops-project/azure-devops-project-go)
+> [Azure DevOps Projects で CI/CD パイプラインを作成する方法を確認する](/azure/devops-project/azure-devops-project-go)
 
 ## <a name="dependency-management-with-dep"></a>dep を使用した依存関係の管理
 
-公式ソリューションはまだありませんが、パッケージの依存関係を管理し、Go でベンダリングするさまざまな方法があります。 この管理を行うときには、`dep` 依存関係マネージャーを使用することをお勧めします。 Azure SDK for Go ではベンダリングに dep を使用します。dep を使用して、他のプロジェクトの依存関係を正しく取得することが保証されます。
+Azure SDK for Go では、依存関係の管理に dep を使用します。 dep コマンドを使用すると、Go アプリケーションのベンダー要件をプルし、バージョン間の競合を回避し、プロジェクトが適切に動作することを確認できます。
 
 > [!div class="nextstepaction"]
 > [dep 依存関係マネージャーを入手する](https://github.com/golang/dep)

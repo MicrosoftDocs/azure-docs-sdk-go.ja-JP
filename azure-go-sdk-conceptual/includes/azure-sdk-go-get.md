@@ -2,21 +2,21 @@
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 02/14/2018
+ms.date: 09/05/2018
 ms.topic: include
 ms.prod: azure
 ms.technology: azure-cli
-ms.openlocfilehash: d021dd8ef4744b7c50b296b231bf63481f92411a
-ms.sourcegitcommit: 2a3bd491e087a1d0e7d269bed896c029357d62a6
+ms.openlocfilehash: 5df14f939efdd0550b49261c88c8dc6518ada459
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/12/2018
-ms.locfileid: "38988078"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059258"
 ---
-[Azure SDK for Go](https://github.com/Azure/azure-sdk-for-go) は、Go バージョン 1.8 以降と互換性があります。 [Azure Stack プロファイル](https://docs.microsoft.com/azure/azure-stack/azure-stack-version-profiles)を使用している環境では、Go バージョン 1.9 が最小要件となります。
-システム上に Go がない場合は、[Go のインストール手順](https://golang.org/doc/install)に従ってください。
+[Azure SDK for Go](https://github.com/Azure/azure-sdk-for-go) は、Go バージョン 1.8 以上と互換性があります。 [Azure Stack プロファイル](/azure/azure-stack/user/azure-stack-version-profiles-go)を使用している環境では、Go バージョン 1.9 が最小要件となります。
+Go をインストールする必要がある場合は、[Go のインストール手順](https://golang.org/doc/install)に従ってください。
 
-`go get` を使用して、Azure SDK for Go と依存関係を入手できます。
+`go get` を使用して、Azure SDK for Go と依存関係をダウンロードできます。
 
 ```bash
 go get -u -d github.com/Azure/azure-sdk-for-go/...

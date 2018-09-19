@@ -5,34 +5,33 @@ services: azure
 author: sptramer
 ms.author: sttramer
 manager: carmonm
-ms.date: 04/03/2018
+ms.date: 09/05/2018
 ms.topic: conceptual
-ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: f5e76fc745512a3a52172f560c3a24f510e96feb
-ms.sourcegitcommit: d1790b317a8fcb4d672c654dac2a925a976589d4
+ms.openlocfilehash: 28fd4a4c0832ab19dcf52dc549d0ddc0d1eec6f1
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/14/2018
-ms.locfileid: "39039541"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059103"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go における認証方法
 
-Azure SDK for Go では、アプリケーションで使用できるさまざまな認証の種類と方法が提供されます。 環境変数からの情報の取得から、Web ベースの対話型認証まで、さまざまな認証方法がサポートされています。 この記事では、この SDK で使用可能な認証の種類とそれらの使用方法について説明します。 また、アプリケーションに適した認証の種類を選択するためのベスト プラクティスについても説明します。
+Azure SDK for Go には、Azure での認証方法が複数用意されています。 これらの認証の "_種類_" は、さまざまな認証 "_方法_" で呼び出されます。 この記事では、使用可能な種類、方法、およびアプリケーションに最適なものを選択する方法について説明します。
 
 ## <a name="available-authentication-types-and-methods"></a>使用可能な認証の種類と方法
 
-Azure SDK for Go では、異なる資格情報セットを使用する複数の認証の種類が提供されます。 これらの認証の種類は、それぞれ異なる認証方法 (SDK が資格情報を入力として受け取る方法) で使用できます。 次の表に、使用できる認証の種類と、アプリケーションで使用する際に推奨される状況を示します。
+Azure SDK for Go では、異なる資格情報セットを使用する複数の認証の種類が提供されます。 認証の種類は、それぞれ異なる認証方法 (SDK が資格情報を入力として受け取る方法) で使用できます。 次の表に、使用できる認証の種類と、アプリケーションで使用する際に推奨される状況を示します。
 
 | 認証の種類 | 推奨される状況 |
 |---------------------|---------------------|
 | 証明書ベースの認証 | Azure Active Directory (AAD) ユーザーまたはサービス プリンシパル用に構成された X509 証明書がある場合。 詳細については、「[Azure Active Directory の証明書ベースの認証の概要]」をご覧ください。 |
 | クライアントの資格情報 | このアプリケーションまたはアプリケーションが属するクラス用に設定された構成済みのサービス プリンシパルがある場合。 詳細については、[Azure CLI でのサービス プリンシパルの作成]に関する記事をご覧ください。 |
 | 管理対象サービス ID (MSI) | 管理対象サービス ID (MSI) で構成された Azure リソース上でアプリケーションが実行されている場合。 詳細については、「[Azure リソースの管理対象サービス ID (MSI)]」をご覧ください。 |
-| デバイス トークン | アプリケーションを対話形式で__のみ__使用し、複数の AAD テナントのさまざまなユーザーが使用する可能性がある場合。 ユーザーは、Web ブラウザーにアクセスしてサインインできます。 詳細については、「[デバイス トークン認証を使用する](#use-device-token-authentication)」をご覧ください。|
+| デバイス トークン | お使いのアプリケーションでは、対話形式 "__のみ__" の使用が想定されている場合。 ユーザーが多要素認証を有効にしていることがあります。 ユーザーは、Web ブラウザーにアクセスしてサインインできます。 詳細については、「[デバイス トークン認証を使用する](#use-device-token-authentication)」をご覧ください。|
 | ユーザー名/パスワード | 他のどの認証方法も使用できない対話型アプリケーションがある場合。 ユーザーは、AAD サインインで多要素認証を有効にすることはできません。 |
 
 > [!IMPORTANT]
@@ -43,10 +42,14 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 
 [Azure Active Directory の証明書ベースの認証の概要]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
 [Azure CLI でのサービス プリンシパルの作成]: /cli/azure/create-an-azure-service-principal-azure-cli
+[Azure リソースの管理対象サービス ID (MSI)]: /azure/active-directory/managed-service-identity/overview
 
-  [Azure リソースの管理対象サービス ID (MSI)]: /azure/active-directory/managed-service-identity/overview
+これらの認証の種類は、異なる方法で使用できます。
 
-これらの認証の種類は、異なる方法で使用できます。 [_環境ベースの認証_](#use-environment-based-authentication)では、プログラムの環境から資格情報を直接読み取ります。 [_ファイル ベースの認証_](#use-file-based-authentication)では、サービス プリンシパルの資格情報が含まれたファイルを読み込みます。 [_クライアント ベースの認証_](#use-an-authentication-client)では、Go コード内のオブジェクトを使用します。プログラムの実行時に資格情報を提供する必要があります。 最後に、"[_デバイス トークン認証_](#use-device-token-authentication)" では、ユーザーはトークンを使用して Web ブラウザーを介して対話形式でサインインする必要があります。環境ベースまたはファイル ベースの認証では使用できません。
+* [_環境ベースの認証_](#use-environment-based-authentication)では、プログラムの環境から資格情報を直接読み取ります。
+* [_ファイル ベースの認証_](#use-file-based-authentication)では、サービス プリンシパルの資格情報が含まれたファイルを読み込みます。
+* "[_クライアント ベースの認証_](#use-an-authentication-client)" では、コード内のオブジェクトを使用します。プログラムの実行時に資格情報を提供する必要があります。
+* "[_デバイス トークン認証_](#use-device-token-authentication)" では、ユーザーはトークンを使用して Web ブラウザーを介して対話形式でサインインする必要があります。
 
 認証の関数と型はすべて `github.com/Azure/go-autorest/autorest/azure/auth` パッケージで使用できます。
 
@@ -55,9 +58,16 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 
 ## <a name="use-environment-based-authentication"></a>環境ベースの認証を使用する
 
-コンテナーなどの厳しく管理された環境でアプリケーションを実行する場合は、環境ベースの認証が自然な選択となります。 アプリケーションを実行する前にシェル環境を構成すると、実行時に Go SDK によってこれらの環境変数が読み取られ、Azure で認証が行われます。
+管理された設定でアプリケーションを実行している場合は、環境ベースの認証が自然な選択となります。 この認証方法を使用して、シェル環境を構成してからアプリケーションを実行します。 実行時に、Azure で認証するために、これらの環境変数が Go SDK によって読み取られます。
 
-環境ベースの認証では、デバイス トークンを除くすべての認証方法がサポートされ、クライアントの資格情報、証明書、ユーザー名/パスワード、管理対象サービス ID (MSI) の順番で評価されます。 必要な環境変数が設定されていない場合、または SDK が認証サービスから拒否された場合は、次の認証の種類が試されます。 SDK が環境から認証できない場合は、エラーが返されます。
+環境ベースの認証では、デバイス トークンを除くすべての認証方法がサポートされ、次の順番で評価されます。
+
+* クライアントの資格情報
+* X509 証明書
+* ユーザー名/パスワード
+* 管理対象サービス ID (MSI)
+
+認証の種類に設定されていない値があったり、拒否されたりした場合は、SDK では自動的に次の認証の種類が試行されます。 試行できる種類がそれ以上ない場合、SDK によってエラーが返されます。
 
 次の表に、環境ベースの認証でサポートされている各認証の種類で設定する必要がある環境変数の詳細を示します。
 
@@ -74,14 +84,14 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 | | `AZURE_CLIENT_ID` | アプリケーション クライアント ID。 |
 | | `AZURE_USERNAME` | サインインに使用するユーザー名。 |
 | | `AZURE_PASSWORD` | サインインに使用するパスワード。 |
-| __MSI__ | | MSI では、資格情報を設定する必要はありません。 アプリケーションは、MSI を使用するように構成された Azure リソース上で実行されている必要があります。 詳細については、「[Azure リソースの管理対象サービス ID (MSI)]」をご覧ください。 |
+| __MSI__ | | MSI 認証で資格情報は必要ありません。 アプリケーションは、MSI を使用するように構成された Azure リソース上で実行されている必要があります。 詳細については、「[Azure リソースの管理対象サービス ID (MSI)]」をご覧ください。 |
 
-既定の Azure パブリック クラウド以外のクラウドまたは管理エンドポイントに接続する必要がある場合は、次の環境変数を設定することもできます。 これらの環境変数は、Azure Stack、異なる地理的リージョンのクラウド、または Azure クラシック デプロイ モデルを使用する場合に設定するのが最も一般的です。
+既定の Azure パブリック クラウド以外のクラウドまたは管理エンドポイントに接続するには、次の環境変数を設定します。 Azure Stack、異なる地理的リージョンのクラウド、またはクラシック デプロイ モデルを使用する場合が最も一般的な理由です。
 
 | 環境変数 | 説明  |
 |----------------------|--------------|
 | `AZURE_ENVIRONMENT` | 接続先のクラウド環境の名前。 |
-| `AZURE_AD_RESOURCE` | 接続時に使用する Active Directory リソース ID。 これは、管理エンドポイントを参照する URI である必要があります。 |
+| `AZURE_AD_RESOURCE` | 接続するときに管理エンドポイントの URI として使用する Active Directory リソース ID。 |
 
 環境ベースの認証を使用する場合は、[NewAuthorizerFromEnvironment](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewAuthorizerFromEnvironment) 関数を呼び出して authorizer オブジェクトを取得します。 その後、このオブジェクトがクライアントの `Authorizer` プロパティで設定され、Azure へのクライアントのアクセスが許可されます。
 
@@ -112,7 +122,7 @@ Azure Stack での Azure SDK for Go の使用方法の詳細については、�
 
 ## <a name="use-file-based-authentication"></a>ファイル ベースの認証を使用する
 
-ファイル ベースの認証は、[Azure CLI](/cli/azure) で生成されたローカル ファイル形式で保存されているクライアントの資格情報でのみ機能します。 `--sdk-auth` パラメーターを指定して新しいサービス プリンシパルを作成すると、このファイルを簡単に作成できます。 ファイル ベースの認証を使用する場合は、サービス プリンシパルの作成時に、この引数が指定されていることを確認してください。 CLI では出力が `stdout` に生成されるので、出力をファイルにリダイレクトします。
+ファイルベースの認証では、[Azure CLI](/cli/azure) によって生成されるファイル形式を使用します。 `--sdk-auth` パラメーターを指定して新しいサービス プリンシパルを作成すると、このファイルを簡単に作成できます。 ファイル ベースの認証を使用する場合は、サービス プリンシパルの作成時に、この引数が指定されていることを確認してください。 CLI では出力が `stdout` に生成されるので、出力をファイルにリダイレクトします。
 
 ```azurecli
 az ad sp create-for-rbac --sdk-auth > azure.auth
@@ -131,7 +141,7 @@ authorizer, err := NewAuthorizerFromFile(azure.PublicCloud.ResourceManagerEndpoi
 
 ## <a name="use-device-token-authentication"></a>デバイス トークン認証を使用する
 
-ユーザーが対話形式でサインインできるようにする場合、この機能を提供する最良の方法は、デバイス トークン認証を使用することです。 この認証フローでは、Microsoft サインイン サイトに貼り付けるトークンをユーザーに渡し、ユーザーはこのサイトで Azure Active Directory (AAD) アカウントで認証します。 標準のユーザー名/パスワード認証とは異なり、この認証方法では多要素認証が有効になっているアカウントがサポートされます。
+ユーザーが対話形式でサインインできるようにする場合、最良の方法は、デバイス トークン認証を使用することです。 この認証フローでは、Microsoft サインイン サイトに貼り付けるトークンをユーザーに渡し、ユーザーはこのサイトで Azure Active Directory (AAD) アカウントで認証します。 標準のユーザー名/パスワード認証とは異なり、この認証方法では多要素認証が有効になっているアカウントがサポートされます。
 
 デバイス トークン認証を使用するには、[NewDeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#NewDeviceFlowConfig) 関数で [DeviceFlowConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig) Authorizer を作成します。 作成されたオブジェクトで [Authorizer](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig.Authorizer) を呼び出して認証プロセスを開始します。 デバイス認証フローでは、認証フロー全体が完了するまでプログラムの実行がブロックされます。
 
@@ -143,7 +153,11 @@ authorizer, err := deviceConfig.Authorizer()
 
 ## <a name="use-an-authentication-client"></a>認証クライアントを使用する
 
-特定の種類の認証が必要であり、ユーザーの認証情報を読み込む処理をプログラムで実行する場合は、[auth.AuthorizerConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#AuthorizerConfig) インターフェイスに準拠したクライアントを使用できます。 対話型プログラムが必要な場合、特別な構成ファイルを使用する場合、または別の認証方法を使用できない要件がある場合は、このインターフェイスを実装する型を使用します。
+特定の種類の認証が必要であり、ユーザーの認証情報を読み込む処理をプログラムで実行する場合は、[auth.AuthorizerConfig](https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#AuthorizerConfig) インターフェイスに準拠したクライアントを使用できます。 次の場合にこのインターフェイスを実装する種類を使用します。
+
+* 対話型プログラムを記述する
+* 特別な構成ファイルを使用する
+* 組み込みの認証方法を使用できないようにする要件がある
 
 > [!WARNING]
 > Azure の資格情報をアプリケーションにハードコードしないでください。 シークレットをアプリケーションのバイナリに配置すると、アプリケーションが実行されているかどうかに関係なく、攻撃者がシークレットを簡単に抽出できるようになります。 この場合、資格情報が承認されているすべての Azure リソースが危険にさらされます。
@@ -163,7 +177,7 @@ authorizer, err := deviceConfig.Authorizer()
 [DeviceFlowConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#DeviceFlowConfig
 [UsernamePasswordConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#UsernamePasswordConfig
 
-関連付けられた `New` 関数で認証子を作成し、作成されたオブジェクトで `Authorize` を呼び出して認証を実行します。 たとえば、証明書ベースの認証を使用する場合は次のようになります。
+関連付けられた `New` 関数で認証子を作成し、作成されたオブジェクトで `Authorize` を呼び出して認証します。 たとえば、証明書ベースの認証を使用する場合は次のようになります。
 
 ```go
 import "github.com/Azure/go-autorest/autorest/azure/auth"

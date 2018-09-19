@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 3388359bba791c87025b6ffd0e6b476f95589f73
-ms.sourcegitcommit: 81e97407e6139375bf7357045e818c87a17dcde1
+ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
+ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/19/2018
-ms.locfileid: "36262982"
+ms.lasthandoff: 09/07/2018
+ms.locfileid: "44059188"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール
 
@@ -26,7 +26,7 @@ Azure SDK for Go へようこそ。 この SDK を使用すると、Go アプリ
 
 一部の Azure サービスには独自の Go SDK が用意されていますが、これは Azure SDK for Go のコア パッケージには含まれていません。 次の表に、独自の SDK が用意されているサービスと、そのパッケージ名を示します。 これらのパッケージは、すべてプレビュー段階にあると考えられます。
 
-| サービス | パッケージ |
+| Service | Package |
 |---------|---------|
 | Blob Storage | [github.com/Azure/azure-storage-blob-go](https://github.com/Azure/azure-storage-blob-go) |
 | File Storage | [github.com/Azure/azure-storage-file-go](https://github.com/Azure/azure-storage-file-go) |
@@ -37,9 +37,9 @@ Azure SDK for Go へようこそ。 この SDK を使用すると、Go アプリ
 
 ## <a name="vendor-the-azure-sdk-for-go"></a>Azure SDK for Go をベンダリングする
 
-Azure SDK for Go は、[dep](https://github.com/golang/dep) を使用してベンダリングできます。 安定性のため、ベンダリングすることをお勧めします。 `dep` サポートを使用するには、`Gopkg.toml` の `[[constraint]]` セクションに `github.com/Azure/azure-sdk-for-go` を追加します。 たとえば、バージョン `14.0.0` でベンダリングするには、次のエントリを追加します。
+Azure SDK for Go は、[dep](https://github.com/golang/dep) を使用してベンダリングできます。 安定性のため、ベンダリングすることをお勧めします。 独自のプロジェクトで `dep` を使用するには、`github.com/Azure/azure-sdk-for-go` を `Gopkg.toml` の `[[constraint]]` セクションに追加します。 たとえば、バージョン `14.0.0` でベンダリングするには、次のエントリを追加します。
 
-```
+```toml
 [[constraint]]
 name = "github.com/Azure/azure-sdk-for-go"
 version = "14.0.0"
@@ -50,7 +50,7 @@ version = "14.0.0"
 Go コードから Azure サービスを使用するには、対話するサービスと必要な `autorest` モジュールをインポートします。
 提供されているモジュールの一覧については、[利用可能なサービス](https://godoc.org/github.com/Azure/azure-sdk-for-go)および [AutoRest パッケージ](https://godoc.org/github.com/Azure/go-autorest) の GoDoc を参照してください。 必要となる `go-autorest` の最も一般的なパッケージを次に示します。
 
-| パッケージ | 説明 |
+| Package | 説明 |
 |---------|-------------|
 | [github.com/Azure/go-autorest/autorest][autorest] | サービス クライアント認証を処理するためのオブジェクト |
 | [github.com/Azure/go-autorest/autorest/azure][autorest/azure] | Azure サービスと対話するための定数 |
@@ -62,13 +62,14 @@ Go コードから Azure サービスを使用するには、対話するサー�
 [autorest/adal]: https://godoc.org/github.com/Azure/go-autorest/autorest/adal
 [autorest/to]: https://godoc.org/github.com/Azure/go-autorest/autorest/to
 
-Azure サービス用のモジュールは、SDK API とは別にバージョン管理されています。 これらのバージョンは、モジュールのインポート パスに含まれ、_サービス バージョン_または_プロファイル_のいずれかになります。 現時点では、特定のサービス バージョンを開発とリリースの両方に使用することをお勧めします。 サービスは、`services` モジュールの下にあります。 インポートの完全なパスは、サービス名の後に `YYYY-MM-DD` 形式のバージョンが続き、その後にもう一度サービス名が続きます。 たとえば、Compute サービスの `2017-03-30` バージョンを含めるには、次のように入力します。
+Go パッケージと Azure サービスは、個別にバージョン管理されます。 サービスのバージョンは、`services` モジュールの下の、モジュールのインポート パスに含まれます。 モジュールの完全なパスは、サービス名の後に `YYYY-MM-DD` 形式のバージョンが続き、その後にもう一度サービス名が続きます。 たとえば、Compute サービスの `2017-03-30` バージョンをインポートするには、次のように入力します。
 
 ```go
 import "github.com/Azure/azure-sdk-for-go/services/compute/mgmt/2017-03-30/compute"
 ```
 
-他のバージョンを使用する理由がない限り、現時点ではサービスの最新バージョンを使用することをお勧めします。
+開発の開始時には最新バージョンのサービスを使用して、一貫性を保つことをお勧めします。
+バージョン間で Go SDK の更新プログラムが公開されない場合でも、その期間中にコードの破損につながりかねないようなサービス要件の変更が発生することがあるためです。
 
 サービスの一括スナップショットが必要な場合は、単一のプロファイル バージョンを選択することもできます。 現時点では、ロックされたプロファイルはバージョン `2017-03-09` だけです。このバージョンには、サービスの最新の機能が含まれていない可能性があります。 プロファイルは `profiles` モジュールの下にあり、バージョンは `YYYY-MM-DD` 形式です。 サービスは、プロファイル バージョンの下にグループ化されます。 たとえば、`2017-03-09` プロファイルから Azure リソース管理モジュールをインポートするには、次のように入力します。
 
