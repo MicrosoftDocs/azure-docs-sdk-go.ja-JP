@@ -9,12 +9,12 @@ ms.topic: sample
 ms.technology: azure-sdk-go
 ms.service: virtual-machines
 ms.devlang: go
-ms.openlocfilehash: d570ad8598ae06633d0010245c207641161ee446
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 20c264157905ea870b8c432d64a204974a1bc964
+ms.sourcegitcommit: c435f6602524565d340aac5506be5e955e78f16c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059086"
+ms.lasthandoff: 09/12/2018
+ms.locfileid: "44711959"
 ---
 # <a name="azure-sdk-for-go-samples-for-compute-and-networking"></a>Azure SDK for Go のサンプル (コンピューティングとネットワーク)
 
@@ -28,4 +28,4 @@ Azure SDK for Go の全サンプルは、[GitHub](https://github.com/Azure-Sampl
 | [compute/vm_disk](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_disk.go) | VM のデータ ディスクを作成、接続、切断、更新、および暗号化します。 |
 | [compute/vm](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm.go) | VM を作成、更新、非アクティブ化、および管理します。 |
 | [compute/vm_with_availabilityset](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_availabilityset.go) | VM の可用性セットおよびロード バランサーを作成します。 |
-| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | VM のマネージド サービス ID (MSI) を作成および管理します。 |
+| [compute/vm_with_identity](https://github.com/Azure-Samples/azure-sdk-for-go-samples/blob/master/compute/vm_with_identity.go) | Azure リソースのマネージド ID を作成および変更します。 | 

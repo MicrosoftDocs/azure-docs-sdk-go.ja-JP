@@ -11,12 +11,12 @@ ms.technology: azure-sdk-go
 ms.devlang: go
 ms.service: active-directory
 ms.component: authentication
-ms.openlocfilehash: 28fd4a4c0832ab19dcf52dc549d0ddc0d1eec6f1
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 8f94b9ba715c32263d324306cce69bd484c05702
+ms.sourcegitcommit: c435f6602524565d340aac5506be5e955e78f16c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059103"
+ms.lasthandoff: 09/12/2018
+ms.locfileid: "44711976"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go における認証方法
 
@@ -30,7 +30,7 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 |---------------------|---------------------|
 | 証明書ベースの認証 | Azure Active Directory (AAD) ユーザーまたはサービス プリンシパル用に構成された X509 証明書がある場合。 詳細については、「[Azure Active Directory の証明書ベースの認証の概要]」をご覧ください。 |
 | クライアントの資格情報 | このアプリケーションまたはアプリケーションが属するクラス用に設定された構成済みのサービス プリンシパルがある場合。 詳細については、[Azure CLI でのサービス プリンシパルの作成]に関する記事をご覧ください。 |
-| 管理対象サービス ID (MSI) | 管理対象サービス ID (MSI) で構成された Azure リソース上でアプリケーションが実行されている場合。 詳細については、「[Azure リソースの管理対象サービス ID (MSI)]」をご覧ください。 |
+| Azure リソースのマネージド ID | マネージド ID で構成された Azure リソース上でアプリケーションが実行されている場合。 詳細については、[Azure リソースのマネージド ID]に関するページをご覧ください。 |
 | デバイス トークン | お使いのアプリケーションでは、対話形式 "__のみ__" の使用が想定されている場合。 ユーザーが多要素認証を有効にしていることがあります。 ユーザーは、Web ブラウザーにアクセスしてサインインできます。 詳細については、「[デバイス トークン認証を使用する](#use-device-token-authentication)」をご覧ください。|
 | ユーザー名/パスワード | 他のどの認証方法も使用できない対話型アプリケーションがある場合。 ユーザーは、AAD サインインで多要素認証を有効にすることはできません。 |
 
@@ -42,7 +42,7 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 
 [Azure Active Directory の証明書ベースの認証の概要]: /azure/active-directory/active-directory-certificate-based-authentication-get-started
 [Azure CLI でのサービス プリンシパルの作成]: /cli/azure/create-an-azure-service-principal-azure-cli
-[Azure リソースの管理対象サービス ID (MSI)]: /azure/active-directory/managed-service-identity/overview
+[Azure リソースのマネージド ID]: /azure/active-directory/managed-identities-azure-resources/overview
 
 これらの認証の種類は、異なる方法で使用できます。
 
@@ -65,7 +65,7 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 * クライアントの資格情報
 * X509 証明書
 * ユーザー名/パスワード
-* 管理対象サービス ID (MSI)
+* Azure リソースのマネージド ID
 
 認証の種類に設定されていない値があったり、拒否されたりした場合は、SDK では自動的に次の認証の種類が試行されます。 試行できる種類がそれ以上ない場合、SDK によってエラーが返されます。
 
@@ -84,7 +84,7 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 | | `AZURE_CLIENT_ID` | アプリケーション クライアント ID。 |
 | | `AZURE_USERNAME` | サインインに使用するユーザー名。 |
 | | `AZURE_PASSWORD` | サインインに使用するパスワード。 |
-| __MSI__ | | MSI 認証で資格情報は必要ありません。 アプリケーションは、MSI を使用するように構成された Azure リソース上で実行されている必要があります。 詳細については、「[Azure リソースの管理対象サービス ID (MSI)]」をご覧ください。 |
+| __管理対象 ID__ | | マネージド ID 認証では資格情報は必要ありません。 アプリケーションは、マネージド ID を使用するように構成された Azure リソース上で実行されている必要があります。 詳細については、[Azure リソースのマネージド ID]に関するページをご覧ください。 |
 
 既定の Azure パブリック クラウド以外のクラウドまたは管理エンドポイントに接続するには、次の環境変数を設定します。 Azure Stack、異なる地理的リージョンのクラウド、またはクラシック デプロイ モデルを使用する場合が最も一般的な理由です。
 
@@ -168,7 +168,7 @@ authorizer, err := deviceConfig.Authorizer()
 |---------------------|-----------------------|
 | 証明書ベースの認証 | [ClientCertificateConfig] |
 | クライアントの資格情報 | [ClientCredentialsConfig] |
-| 管理対象サービス ID (MSI) | [MSIConfig] |
+| Azure リソースのマネージド ID | [MSIConfig] |
 | ユーザー名/パスワード | [UsernamePasswordConfig] |
 
 [ClientCertificateConfig]: https://godoc.org/github.com/Azure/go-autorest/autorest/azure/auth#ClientCertificateConfig
