@@ -10,12 +10,12 @@ ms.topic: conceptual
 ms.technology: azure-sdk-go
 ms.devlang: go
 ms.component: authentication
-ms.openlocfilehash: f5c2c56e43828f0bedad0b5781dc71991ce1fd3e
-ms.sourcegitcommit: 172f81dd6e4c6a275dc8031815aa87cdb488cbf0
+ms.openlocfilehash: c2c3dccfa8da5cfe57fee0b90139002068982560
+ms.sourcegitcommit: 887b15afcdeaf926a5f3d21b64e4045167fd062c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/26/2018
-ms.locfileid: "47231677"
+ms.lasthandoff: 10/21/2018
+ms.locfileid: "49481984"
 ---
 # <a name="authentication-methods-in-the-azure-sdk-for-go"></a>Azure SDK for Go における認証方法
 
@@ -70,20 +70,21 @@ Azure SDK for Go では、異なる資格情報セットを使用する複数の
 
 次の表に、環境ベースの認証でサポートされている各認証の種類で設定する必要がある環境変数の詳細を示します。
 
-| 認証の種類 | 環境変数 | 説明 |
-| ------------------- | -------------------- | ----------- |
-| __クライアントの資格情報__ | `AZURE_TENANT_ID` | サービス プリンシパルが属する Active Directory テナントの ID。 |
-| | `AZURE_CLIENT_ID` | サービス プリンシパルの名前または ID。 |
-| | `AZURE_CLIENT_SECRET` | サービス プリンシパルに関連付けられているシークレット。 |
-| __証明書__ | `AZURE_TENANT_ID` | 証明書が登録されている Active Directory テナントの ID。 |
-| | `AZURE_CLIENT_ID` | 証明書に関連付けられているアプリケーション クライアント ID。 |
-| | `AZURE_CERTIFICATE_PATH` | クライアント証明書ファイルのパス。 |
-| | `AZURE_CERTIFICATE_PASSWORD` | クライアント証明書のパスワード。 |
-| __ユーザー名/パスワード__ | `AZURE_TENANT_ID` | ユーザーが属する Active Directory テナントの ID。 |
-| | `AZURE_CLIENT_ID` | アプリケーション クライアント ID。 |
-| | `AZURE_USERNAME` | サインインに使用するユーザー名。 |
-| | `AZURE_PASSWORD` | サインインに使用するパスワード。 |
-| __管理対象 ID__ | | マネージド ID 認証では資格情報は必要ありません。 アプリケーションは、マネージド ID を使用するように構成された Azure リソース上で実行されている必要があります。 詳細については、[Azure リソースのマネージド ID]に関するページをご覧ください。 |
+
+|  認証の種類   |     環境変数     |                                                                                                     説明                                                                                                      |
+|------------------------|------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **クライアントの資格情報** |      `AZURE_TENANT_ID`       |                                                                    サービス プリンシパルが属する Active Directory テナントの ID。                                                                     |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                       サービス プリンシパルの名前または ID。                                                                                       |
+|                        |    `AZURE_CLIENT_SECRET`     |                                                                                  サービス プリンシパルに関連付けられているシークレット。                                                                                   |
+|    **証明書**     |      `AZURE_TENANT_ID`       |                                                                   証明書が登録されている Active Directory テナントの ID。                                                                    |
+|                        |      `AZURE_CLIENT_ID`       |                                                                              証明書に関連付けられているアプリケーション クライアント ID。                                                                              |
+|                        |   `AZURE_CERTIFICATE_PATH`   |                                                                                       クライアント証明書ファイルのパス。                                                                                       |
+|                        | `AZURE_CERTIFICATE_PASSWORD` |                                                                                       クライアント証明書のパスワード。                                                                                       |
+| **ユーザー名/パスワード**  |      `AZURE_TENANT_ID`       |                                                                           ユーザーが属する Active Directory テナントの ID。                                                                           |
+|                        |      `AZURE_CLIENT_ID`       |                                                                                              アプリケーション クライアント ID。                                                                                              |
+|                        |       `AZURE_USERNAME`       |                                                                                            サインインに使用するユーザー名。                                                                                             |
+|                        |       `AZURE_PASSWORD`       |                                                                                            サインインに使用するパスワード。                                                                                             |
+|  **管理対象 ID**  |                              | マネージド ID 認証では資格情報は必要ありません。 アプリケーションは、マネージド ID を使用するように構成された Azure リソース上で実行されている必要があります。 詳細については、[Azure リソースのマネージド ID]に関するページをご覧ください。 |
 
 既定の Azure パブリック クラウド以外のクラウドまたは管理エンドポイントに接続するには、次の環境変数を設定します。 Azure Stack、異なる地理的リージョンのクラウド、またはクラシック デプロイ モデルを使用する場合が最も一般的な理由です。
 
