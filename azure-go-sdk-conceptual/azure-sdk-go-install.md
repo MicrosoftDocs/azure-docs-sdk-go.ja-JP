@@ -9,12 +9,12 @@ ms.topic: conceptual
 ms.prod: azure
 ms.technology: azure-sdk-go
 ms.devlang: go
-ms.openlocfilehash: 013a771345d96f0fa8dbece3218a01650744f70b
-ms.sourcegitcommit: 8b9e10b960150dc08f046ab840d6a5627410db29
+ms.openlocfilehash: 7990ec8bde5622078aa822fc7e66ba5c4384d682
+ms.sourcegitcommit: 3d26b464f196f8675c636ae792637d4c882fb92c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/07/2018
-ms.locfileid: "44059188"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52337145"
 ---
 # <a name="install-the-azure-sdk-for-go"></a>Azure SDK for Go のインストール
 
@@ -90,7 +90,7 @@ Azure SDK for Go を使い始めるときには、クイック スタートを�
 
 Go SDK で他のサービスをすぐに使用する場合は、用意されているサンプル コードを参照してください。
 
-* [Azure サービスによる認証](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/iam)
+* [Azure サービスによる認証](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/internal/iam)
 * [SSH 認証を使用した新しい仮想マシンのデプロイ](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/compute)
 * [Azure Container Instances へのコンテナー イメージのデプロイ](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerinstance)
 * [Azure Kubernetes Service でのクラスターの作成](https://github.com/Azure-Samples/azure-sdk-for-go-samples/tree/master/containerservice)
